@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Compressor & Decompressor Portal</title>
+    <meta name="description" content="Powerful file compression and decompression tool supporting txt, jpg, bin, and other file formats">
+    <meta name="keywords" content="file compression, decompression, gzip, compress files, decompress files">
+    
+    <!-- Enhanced CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon and PWA icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>">
+    
+    <!-- SEO and social media meta tags -->
+    <meta property="og:title" content="File Compressor & Decompressor Portal">
+    <meta property="og:description" content="Compress and decompress files easily with our web-based tool">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+</head>
+<body>
+    <!-- Enhanced Theme Toggle -->
+    <div class="theme-toggle">
+        <span title="Dark Mode">🌙</span>
+        <label class="switch" title="Toggle theme">
+            <input type="checkbox" id="themeToggle" aria-label="Toggle between dark and light theme">
+            <span class="slider"></span>
+        </label>
+        <span title="Light Mode">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Enhanced Header -->
+        <header>
+            <h1>🗜️ File Compressor & Decompressor</h1>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">
+                Powerful compression and decompression tool for your files
+            </p>
+        </header>
+        
+        <!-- Compression Section -->
+        <section class="card" aria-labelledby="compress-heading">
+            <h2 id="compress-heading">📦 Compress a File</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                Reduce file size while maintaining quality. Perfect for sharing and storage.
+            </p>
+            
+            <div class="drop-zone" id="drop-zone" role="button" tabindex="0" 
+                 aria-label="Click or drag files to upload for compression"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){this.click()}">
+                <p>📁 Drag & Drop or Click to Upload</p>
+                <p style="font-size: 12px; opacity: 0.7;">
+                    Supported: txt, jpg, jpeg, png, bin, pdf (Max: 50MB)
+                </p>
+            </div>
+            
+            <input type="file" id="fileInput" style="display: none;" 
+                   accept=".txt,.jpg,.jpeg,.png,.bin,.pdf"
+                   aria-label="Select file for compression">
+            
+            <div class="file-info" id="fileInfo" role="status" aria-live="polite"></div>
+            <div class="size-info" id="sizeInfo" role="status" aria-live="polite"></div>
+            
+            <button id="compressBtn" type="button" aria-describedby="compress-description">
+                📦 Compress File
+                <div class="spinner" id="spinner" style="display: none;" aria-hidden="true"></div>
+            </button>
+            <p id="compress-description" style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">
+                Click to start compression process
+            </p>
+        </section>
+
+        <!-- Decompression Section -->
+        <section class="card" aria-labelledby="decompress-heading">
+            <h2 id="decompress-heading">🧩 Decompress a File</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                Extract files from compressed archives. Supports both custom and standard GZIP formats.
+            </p>
+            
+            <div class="drop-zone" id="drop-zone-decompress" role="button" tabindex="0"
+                 aria-label="Click or drag compressed files to upload for decompression"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){this.click()}">
+                <p>🗜️ Drag & Drop .gz File Here</p>
+                <p style="font-size: 12px; opacity: 0.7;">
+                    Upload compressed .gz files (Max: 50MB)
+                </p>
+            </div>
+            
+            <input type="file" id="fileInputDecompress" style="display: none;" 
+                   accept=".gz"
+                   aria-label="Select compressed file for decompression">
+            
+            <div class="file-info" id="fileInfoDecompress" role="status" aria-live="polite"></div>
+            
+            <button id="decompressBtn" type="button" aria-describedby="decompress-description">
+                🧩 Decompress File
+                <div class="spinner" id="spinnerDecompress" style="display: none;" aria-hidden="true"></div>
+            </button>
+            <p id="decompress-description" style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">
+                Click to start decompression process
+            </p>
+        </section>
+
+        <!-- Enhanced FAQ Section -->
+        <section class="card faq" aria-labelledby="faq-heading">
+            <h2 id="faq-heading">❓ Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    What file types are supported for compression?
+                </button>
+                <div class="faq-answer">
+                    <p>We support txt, jpg, jpeg, png, bin, and pdf files up to 50MB in size. These formats cover most common use cases for file compression.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    How does the compression algorithm work?
+                </button>
+                <div class="faq-answer">
+                    <p>We use GZIP compression with custom metadata preservation. This ensures your files can be perfectly restored with original filenames and properties while achieving excellent compression ratios.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    Is my data secure and private?
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! Files are processed locally on our server and automatically deleted after processing. No data is stored permanently, and we don't have access to your file contents.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    Why is decompression failing for some files?
+                </button>
+                <div class="faq-answer">
+                    <p>Decompression can fail if: 1) The file is corrupted, 2) It's not a valid GZIP file, 3) The file wasn't compressed by this tool or standard GZIP. Try re-compressing the original file or use a different compressed file.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    What's the maximum file size limit?
+                </button>
+                <div class="faq-answer">
+                    <p>The maximum file size is 50MB for both compression and decompression. This limit ensures optimal performance and prevents server overload.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    Can I compress multiple files at once?
+                </button>
+                <div class="faq-answer">
+                    <p>Currently, the tool processes one file at a time. For multiple files, you'll need to compress them individually or create an archive (like ZIP) before compression.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="card" aria-labelledby="features-heading">
+            <h2 id="features-heading">✨ Key Features</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 10px; border-left: 4px solid var(--accent-primary);">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 0.5rem;">🚀 Fast Processing</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Lightning-fast compression and decompression using optimized algorithms.</p>
+                </div>
+                <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 10px; border-left: 4px solid var(--success-color);">
+                    <h3 style="color: var(--success-color); margin-bottom: 0.5rem;">🔒 Secure</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Files are processed securely and deleted immediately after operation.</p>
+                </div>
+                <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 10px; border-left: 4px solid var(--warning-color);">
+                    <h3 style="color: var(--warning-color); margin-bottom: 0.5rem;">💾 Metadata Preservation</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Original filenames and properties are preserved during compression.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Enhanced Footer -->
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <p style="margin-bottom: 1rem;">
+                Built with ❤️ Saurav Kumar
+            </p>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                <a href="#" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">📖 Documentation</a>
+                <a href="#" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">🐙 Source Code</a>
+                <a href="#" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">🐛 Report Issues</a>
+                <a href="#" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">💡 Feature Requests</a>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">
+                © 2025 File Compression Portal. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Enhanced Toast Notification -->
+    <div id="toast" role="alert" aria-live="assertive"></div>
+
+    <!-- Enhanced JavaScript -->
+    <script src="script.js"></script>
+    
+    <!-- Additional theme and FAQ functionality -->
+    <script>
+        // Enhanced theme persistence
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('[HTML] DOM Content Loaded - Final initialization');
+            
+            // Enhanced FAQ functionality with ARIA support
+            document.querySelectorAll('.faq-question').forEach((question, index) => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isOpen = answer.style.display === 'block';
+                    
+                    // Close all other answers and update ARIA
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        ans.style.display = 'none';
+                    });
+                    document.querySelectorAll('.faq-question').forEach(q => {
+                        q.setAttribute('aria-expanded', 'false');
+                    });
+                    
+                    // Toggle current answer
+                    if (!isOpen) {
+                        answer.style.display = 'block';
+                        question.setAttribute('aria-expanded', 'true');
+                    } else {
+                        answer.style.display = 'none';
+                        question.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // System theme detection
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (!savedTheme) {
+                // Use system preference if no saved theme
+                if (prefersDark.matches) {
+                    document.body.removeAttribute('data-theme');
+                    document.getElementById('themeToggle').checked = false;
+                } else {
+                    document.body.setAttribute('data-theme', 'light');
+                    document.getElementById('themeToggle').checked = true;
+                }
+            }
+
+            // Listen for system theme changes
+            prefersDark.addEventListener('change', (e) => {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        document.body.removeAttribute('data-theme');
+                        document.getElementById('themeToggle').checked = false;
+                    } else {
+                        document.body.setAttribute('data-theme', 'light');
+                        document.getElementById('themeToggle').checked = true;
+                    }
+                }
+            });
+
+            console.log('[HTML] Enhanced initialization completed');
+        });
+
+        // Service Worker registration for PWA capabilities (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Uncomment when service worker is implemented
+                // navigator.serviceWorker.register('/sw.js');
+            });
+        }
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            // ESC key closes any open FAQ items
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.style.display = 'none';
+                });
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`[PERFORMANCE] Page load time: ${loadTime}ms`);
+            }
+        });
+    </script>
+</body>
+</html>

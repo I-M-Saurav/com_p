@@ -1,0 +1,76 @@
+
+{
+  "name": "compression-portal",
+  "version": "2.0.0",
+  "description": "A powerful file compression and decompression web portal with enhanced error handling and theme support",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "start:3001": "PORT=3001 node server.js",
+    "start:3002": "PORT=3002 node server.js", 
+    "start:3003": "PORT=3003 node server.js",
+    "kill-port": "npx kill-port 3000",
+    "kill-port:3001": "npx kill-port 3001",
+    "kill-port:3002": "npx kill-port 3002",
+    "check-port": "netstat -ano | findstr :3000",
+    "check-ports": "netstat -ano | findstr :300",
+    "clean": "npm run clean:uploads && npm run clean:compressed && npm run clean:decompressed",
+    "clean:uploads": "rmdir /s /q uploads 2>nul || rm -rf uploads 2>/dev/null || true",
+    "clean:compressed": "rmdir /s /q compressed 2>nul || rm -rf compressed 2>/dev/null || true", 
+    "clean:decompressed": "rmdir /s /q decompressed 2>nul || rm -rf decompressed 2>/dev/null || true",
+    "setup": "npm install && npm run clean && node setup.js",
+    "test": "echo \"No tests specified yet\" && exit 0",
+    "lint": "echo \"Linting not configured yet\" && exit 0",
+    "health": "curl -f http://localhost:3000/health || echo \"Server not running\"",
+    "logs": "echo \"Checking server logs...\" && node -e \"console.log('Server logs would appear here')\"",
+    "backup": "node scripts/backup.js",
+    "restore": "node scripts/restore.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "kill-port": "^2.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "compression",
+    "decompression", 
+    "gzip",
+    "file-processing",
+    "web-app",
+    "express",
+    "multer",
+    "nodejs"
+  ],
+  "author": {
+    "name": "Compression Portal Team",
+    "email": "support@compressionportal.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/I-M-Saurav/com_p.git"
+  },
+  "bugs": {
+    "url": "https://github.com/I-M-Saurav/com_p/issues"
+  },
+  "homepage": "https://github.com/I-M-Saurav/com_p#readme",
+  "directories": {
+    "uploads": "./uploads",
+    "compressed": "./compressed", 
+    "decompressed": "./decompressed"
+  },
+  "config": {
+    "port": "3000",
+    "maxFileSize": "52428800",
+    "allowedExtensions": ".txt,.jpg,.jpeg,.png,.bin,.pdf,.gz",
+    "cleanupInterval": "3600000"
+  }
+}
